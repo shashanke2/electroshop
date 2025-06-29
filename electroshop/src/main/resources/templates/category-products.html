@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
+<body>
+<div th:replace="fragments/header :: navbar"></div>
+
+<div class="content">
+    <h2 th:text="'Category: ' + ${category}">Category Name</h2>
+
+    <div class="product-grid">
+        <div class="card" th:each="product : ${products}">
+            <h3 th:text="${product.name}">Product Name</h3>
+            <p>Price: ₹<span th:text="${product.price}">0.0</span></p>
+            <a th:href="@{/products/{id}(id=${product.id})}">
+                <button>View Details</button>
+            </a>
+        </div>
+    </div>
+
+    <p th:if="${products.size() == 0}" style="color: red;">No products found in this category.</p>
+</div>
+</body>
+</html>

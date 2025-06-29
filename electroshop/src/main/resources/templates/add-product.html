@@ -1,0 +1,58 @@
+<!-- templates/add-product.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
+<body>
+<div th:replace="fragments/header :: navbar"></div>
+
+<div class="content">
+
+    <div th:if="${product == null}">
+        <h2>Add New Product</h2>
+        <form th:action="@{/add-product}" method="post">
+            <label>Name:</label>
+            <input type="text" name="name" required/><br/>
+
+            <label>Description:</label>
+            <textarea name="description" rows="4" required></textarea><br/>
+
+            <label>Price:</label>
+            <input type="number" name="price" required/><br/>
+
+            <label>Category:</label>
+            <input type="text" name="category" required/><br/>
+
+            <label>Stock:</label>
+            <input type="number" name="stock" required/><br/>
+
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
+
+    <div th:if="${product != null}">
+        <h2>Update Product</h2>
+        <form th:action="@{/products/update}" method="post">
+            <input type="hidden" name="id" th:value="${product.id}" />
+
+            <label>Name:</label>
+            <input type="text" name="name" th:value="${product.name}" required/><br/>
+
+            <label>Description:</label>
+            <textarea name="description" rows="4" th:text="${product.description}" required></textarea><br/>
+
+            <label>Price:</label>
+            <input type="number" name="price" step="0.01" th:value="${product.price}" required/><br/>
+
+            <label>Category:</label>
+            <input type="text" name="category" th:value="${product.category}" required/><br/>
+
+            <label>Stock:</label>
+            <input type="number" name="stock" th:value="${product.stock}" required/><br/>
+
+            <button type="submit">Update Product</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

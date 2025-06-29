@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
+<body>
+<div th:replace="fragments/header :: navbar"></div>
+
+ <div class="content">
+    
+    <div th:if="${error}" style="color:red;">
+        <p th:text="${error}"></p>
+    </div>
+
+    <div sec:authorize="hasRole('USER')">
+    <h2>Submit Feedback</h2>
+        <form th:action="@{/submit-feedback}" method="post">
+            <label>Message:</label><br/>
+            <textarea name="message" required></textarea><br/><br/>
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+</div>
+
+
+<hr/>
+
+ <div class="content">
+    <h2>All Feedback</h2>
+    <ul>
+        <li th:each="fb : ${feedbacks}">
+            <p>User ID: 
+                <span th:text="${fb.user != null ? fb.user.id : 'Anonymous'}">Anonymous</span>
+            </p>
+            <p th:text="${fb.message}">Feedback Message</p>            
+            <hr/>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login - ElectroShop</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0d1b2a;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: #1b263b;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,255,174, 0.6);
+            width: 350px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #00ffae;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 6px;
+            background-color: #415a77;
+            color: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #00ffae;
+            color: #0d1b2a;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00e6a1;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #ff6b6b;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .register-link a {
+            color: #00ffae;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .register-link a:hover {
+            color: #00e6a1;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h2>🔒 ElectroShop Login</h2>
+    <form th:action="@{/login}" method="post">
+        <label>Email:</label>
+        <input type="text" name="username" required>
+
+        <label>Password:</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <p class="message" th:if="${param.error}">❌ Invalid email or password</p>
+    <p class="message" style="color:#00ffae;" th:if="${param.logout}">✅ You have been logged out</p>
+
+    <div class="register-link">
+        <p>New user? <a th:href="@{/register}">Register here</a></p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
+<body>
+<div th:replace="fragments/header :: navbar"></div>
+
+<div class="content">
+    <h2 th:text="'Search Results for: ' + ${searchQuery}"></h2>
+
+    <div th:if="${#lists.isEmpty(products)}">
+        <p>No products found matching your search.</p>
+    </div>
+
+    <div class="product-grid" th:if="${!#lists.isEmpty(products)}">
+        <div class="card" th:each="product : ${products}">
+            <h3 th:text="${product.name}">Product Name</h3>
+            <p th:text="${product.category}">Category</p>
+            <p>₹<span th:text="${product.price}"></span></p>
+            <a th:href="@{/products/{id}(id=${product.id})}">
+                <button>View Details</button>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
