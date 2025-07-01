@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
+<body>
+<div th:replace="fragments/header :: navbar"></div>
+
+<div class="content">
+    <h2 sec:authorize="hasRole('ADMIN')">All Orders</h2>
+    <h2 sec:authorize="hasRole('USER')">My Orders</h2>
+
+    <div th:each="order : ${orders}" class="card">
+        <h3>Order ID: <span th:text="${order.id}"></span></h3>
+        <p><strong>User:</strong> <span th:text="${order.user.name}"></span></p>
+        <p><strong>Date:</strong> <span th:text="${order.orderDate}"></span></p>
+        <p><strong>Total Amount:</strong> ₹<span th:text="${#numbers.formatDecimal(order.totalAmount, 0, 2)}"></span></p>
+
+        <a class="primary-btn" th:href="@{'/orders/' + ${order.id}}">View Details</a>
+    </div>
+</div>
+
+</body>
+</html>

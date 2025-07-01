@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
+<body class="no-scroll">
+<div th:replace="fragments/header :: navbar"></div>
+
+<div class="home-container">
+    <h1>Welcome to <span>ElectroShop</span></h1>
+    <p>Your one-stop destination for quality electronics at the best prices.</p>
+    <br/>
+    <a th:href="@{/products}">
+        <button class="primary-btn">Start Shopping</button>
+    </a>
+</div>
+</body>
+</html>
