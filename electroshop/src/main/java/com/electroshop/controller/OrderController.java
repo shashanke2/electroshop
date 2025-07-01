@@ -1,7 +1,5 @@
 package com.electroshop.controller;
 
-import com.electroshop.dto.OrderDTO;
-import com.electroshop.dto.OrderItemDTO;
 import com.electroshop.model.Order;
 import com.electroshop.model.OrderItem;
 import com.electroshop.model.Product;
@@ -16,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -32,27 +29,22 @@ public class OrderController {
     private ProductService productService;
 
     @PostMapping
-    public ResponseEntity<OrderDTO> placeOrder(@Valid @RequestBody OrderDTO orderDTO) {
-        User user = userService.getUserById(orderDTO.getUserId());
-
-        Order order = new Order();
-        order.setOrderDate(orderDTO.getOrderDate());
+    public ResponseEntity<Order> placeOrder(@Valid @RequestBody Order order) {
+        // Fetch user from DB to set full object
+        User user = userService.getUserById(order.getUser().getId());
         order.setUser(user);
 
         List<OrderItem> orderItems = new ArrayList<>();
         double totalAmount = 0;
 
-        for (OrderItemDTO itemDTO : orderDTO.getOrderItems()) {
-            Product product = productService.getProductById(itemDTO.getProductId());
-            int requestedQty = itemDTO.getQuantity();
+        for (OrderItem item : order.getOrderItems()) {
+            Product product = productService.getProductById(item.getProduct().getId());
+            int requestedQty = item.getQuantity();
 
             productService.reduceStock(product.getId(), requestedQty);
 
-            OrderItem item = new OrderItem();
             item.setProduct(product);
-            item.setQuantity(requestedQty);
             item.setOrder(order); // back-reference
-
             double itemPrice = product.getPrice();
             item.setPrice(itemPrice);
 
@@ -64,20 +56,19 @@ public class OrderController {
         order.setTotalAmount(totalAmount);
 
         Order savedOrder = orderService.placeOrder(order);
-        return ResponseEntity.ok(mapToDTO(savedOrder));
+        return ResponseEntity.ok(savedOrder);
     }
 
     @GetMapping
-    public ResponseEntity<List<OrderDTO>> getAllOrders() {
+    public ResponseEntity<List<Order>> getAllOrders() {
         org.springframework.security.core.Authentication authentication = 
             org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
 
-        String email = authentication.getName(); // by default, email from login form
-
+        String email = authentication.getName();
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
 
-        User user = userService.getUserByEmail(email); // use email here
+        User user = userService.getUserByEmail(email);
 
         List<Order> orders;
         if (isAdmin) {
@@ -86,39 +77,17 @@ public class OrderController {
             orders = orderService.getOrdersByUserId(user.getId());
         }
 
-        List<OrderDTO> dtos = orders.stream()
-                .map(this::mapToDTO)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(dtos);
+        return ResponseEntity.ok(orders);
     }
 
-
     @GetMapping("/{id}")
-    public ResponseEntity<OrderDTO> getOrderById(@PathVariable Long id) {
-        return ResponseEntity.ok(mapToDTO(orderService.getOrderById(id)));
+    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
+        return ResponseEntity.ok(orderService.getOrderById(id));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);
         return ResponseEntity.ok("Order deleted successfully.");
-    }
-
-    private OrderDTO mapToDTO(Order order) {
-        List<OrderItemDTO> itemDTOs = order.getOrderItems().stream()
-                .map(item -> new OrderItemDTO(
-                        item.getId(),
-                        item.getProduct().getId(),
-                        item.getQuantity()
-                ))
-                .collect(Collectors.toList());
-
-        return new OrderDTO(
-                order.getId(),
-                order.getOrderDate(),
-                order.getTotalAmount(),
-                order.getUser().getId(),
-                itemDTOs
-        );
     }
 }

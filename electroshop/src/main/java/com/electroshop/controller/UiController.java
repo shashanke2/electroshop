@@ -43,8 +43,8 @@ public class UiController {
     @Autowired
     private OrderService orderService;
     
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public String home() {
@@ -206,7 +206,7 @@ public class UiController {
             review.setProduct(productService.getProductById(productId));
 
             reviewService.addReview(review);
-            return "redirect:/thank-you";
+            return "redirect:/products/" + productId;
 
         } catch (Exception e) {
             model.addAttribute("error", "Unable to submit review: " + e.getMessage());
@@ -243,7 +243,7 @@ public class UiController {
             feedback.setUser(user);
 
             feedbackService.submitFeedback(feedback);
-            return "redirect:/thank-you";
+            return "redirect:/feedbacks";
         } catch (Exception e) {
             model.addAttribute("error", "Unable to submit feedback: " + e.getMessage());
             List<Feedback> feedbacks = feedbackService.getAllFeedback();

@@ -1,6 +1,5 @@
 package com.electroshop.controller;
 
-import com.electroshop.dto.ReviewDTO;
 import com.electroshop.model.Product;
 import com.electroshop.model.Review;
 import com.electroshop.model.User;
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/reviews")
@@ -31,34 +29,27 @@ public class ReviewController {
 
     // Add Review
     @PostMapping
-    public ResponseEntity<ReviewDTO> createReview(@Valid @RequestBody ReviewDTO dto) {
-        Product product = productService.getProductById(dto.getProductId());
-        User user = userService.getUserById(dto.getUserId());
+    public ResponseEntity<Review> createReview(@Valid @RequestBody Review review) {
+        Product product = productService.getProductById(review.getProduct().getId());
+        User user = userService.getUserById(review.getUser().getId());
 
-        Review review = new Review();
-        review.setRating(dto.getRating());
-        review.setComment(dto.getComment());
         review.setProduct(product);
         review.setUser(user);
 
         Review saved = reviewService.addReview(review);
-        return ResponseEntity.ok(mapToDTO(saved));
+        return ResponseEntity.ok(saved);
     }
 
     // Get review by ID
     @GetMapping("/{id}")
-    public ResponseEntity<ReviewDTO> getReviewById(@PathVariable Long id) {
-        return ResponseEntity.ok(mapToDTO(reviewService.getReviewById(id)));
+    public ResponseEntity<Review> getReviewById(@PathVariable Long id) {
+        return ResponseEntity.ok(reviewService.getReviewById(id));
     }
 
     // Get all reviews for product
     @GetMapping("/product/{productId}")
-    public ResponseEntity<List<ReviewDTO>> getReviewsByProductId(@PathVariable Long productId) {
-        List<ReviewDTO> list = reviewService.getReviewsByProductId(productId)
-                .stream()
-                .map(this::mapToDTO)
-                .collect(Collectors.toList());
-
+    public ResponseEntity<List<Review>> getReviewsByProductId(@PathVariable Long productId) {
+        List<Review> list = reviewService.getReviewsByProductId(productId);
         return ResponseEntity.ok(list);
     }
 
@@ -68,26 +59,11 @@ public class ReviewController {
         reviewService.deleteReview(id);
         return ResponseEntity.ok("Review deleted successfully.");
     }
-    
- // Get all reviews
-    @GetMapping
-    public ResponseEntity<List<ReviewDTO>> getAllReviews() {
-        List<ReviewDTO> list = reviewService.getAllReviews()
-                .stream()
-                .map(this::mapToDTO)
-                .collect(Collectors.toList());
 
+    // Get all reviews
+    @GetMapping
+    public ResponseEntity<List<Review>> getAllReviews() {
+        List<Review> list = reviewService.getAllReviews();
         return ResponseEntity.ok(list);
-    }
-    
-    // DTO to Entity
-    private ReviewDTO mapToDTO(Review r) {
-        return new ReviewDTO(
-                r.getId(),
-                r.getRating(),
-                r.getComment(),
-                r.getProduct().getId(),
-                r.getUser().getId()
-        );
     }
 }

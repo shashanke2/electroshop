@@ -4,7 +4,6 @@ import com.electroshop.exception.ResourceNotFoundException;
 import com.electroshop.model.Product;
 import com.electroshop.repository.ProductRepository;
 import com.electroshop.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +13,6 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
-    @Autowired
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }

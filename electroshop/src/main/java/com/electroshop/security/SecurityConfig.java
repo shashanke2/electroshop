@@ -19,7 +19,7 @@ public class SecurityConfig {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    // ✅ DaoAuthenticationProvider bean
+    // DaoAuthenticationProvider bean
     @Bean
     DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -31,8 +31,8 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-//            .csrf(csrf -> csrf.disable())
-            .authenticationProvider(authenticationProvider()) // ✅ register custom provider
+//          .csrf(csrf -> csrf.disable())
+            .authenticationProvider(authenticationProvider()) // register custom provider
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/login", "/register", "/css/**", "/js/**").permitAll()
                 .requestMatchers("/products", "/products/**").permitAll()

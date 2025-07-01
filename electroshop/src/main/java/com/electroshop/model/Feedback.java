@@ -1,6 +1,7 @@
 package com.electroshop.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
@@ -14,6 +15,7 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Feedback message cannot be blank")
     @Column(nullable = false, length = 1000)
     private String message;
 
