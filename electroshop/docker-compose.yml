@@ -9,13 +9,13 @@ services:
       MYSQL_ROOT_PASSWORD: Shashank@1002
       MYSQL_DATABASE: electroshop
     ports:
-      - "3307:3306"   # <-- use 3307 on host
+      - "3307:3306"   # host:container
 
   electroshop:
     build: .
     container_name: electroshop_container
     ports:
-      - "8080:8080"
+      - "8081:8080"   # host:container
     depends_on:
       - mysql
     environment:
