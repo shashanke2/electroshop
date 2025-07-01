@@ -1,25 +1,12 @@
 version: '3.8'
 
 services:
-  mysql:
-    image: mysql:8
-    container_name: mysql_container
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: Shashank@1002
-      MYSQL_DATABASE: electroshop
-    ports:
-      - "3307:3306"   # host:container
-
   electroshop:
     build: .
     container_name: electroshop_container
     ports:
-      - "8081:8080"   # host:container
-    depends_on:
-      - mysql
-    restart: always
+      - "8081:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_container:3306/electroshop
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/electroshop
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Shashank@1002
