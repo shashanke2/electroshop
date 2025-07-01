@@ -9,7 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: Shashank@1002
       MYSQL_DATABASE: electroshop
     ports:
-      - "3306:3306"
+      - "3307:3306"   # <-- use 3307 on host
 
   electroshop:
     build: .
