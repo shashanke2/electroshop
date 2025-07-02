@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new RuntimeException("User already exists with email: " + user.getEmail());
         }
-        user.setRole("USER");
+        user.setRole("ADMIN");
         user.setPassword(passwordEncoder.encode(user.getPassword())); // encode password
         return userRepository.save(user);
     }
