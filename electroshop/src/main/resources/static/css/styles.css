@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', sans-serif;
-    background-color: #afe8c9;
+    background-color: #a6f2d5; /* slightly softer mint */
 }
 
 body.no-scroll {
@@ -10,11 +10,12 @@ body.no-scroll {
 }
 
 nav.navbar {
-    background-color: #00f7b3; 
+    background: linear-gradient(90deg, #00e6a1, #00d9a0); 
     padding: 10px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .nav-left ul {
@@ -32,10 +33,11 @@ nav.navbar {
     font-weight: 500;
     padding: 8px 12px;
     border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
 .nav-left ul li a:hover {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .nav-right {
@@ -48,6 +50,10 @@ nav.navbar {
     align-items: center;
     height: 8px; 
     width: 400px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
 }
 
 .search-form input[type="text"] {
@@ -58,18 +64,21 @@ nav.navbar {
     outline: none;
     background-color: transparent;
     color: #333;
+    padding-left: 10px;
 }
 
 .search-form button {
-    background-color: #00f7b3;
+    background-color: #00e6a1;
     border: none;
     cursor: pointer;
     height: 100%;
-    border-radius: 0 25px 25px 0;
+    border-radius: 0 20px 20px 0;
+    color: white;
+    transition: background-color 0.3s;
 }
 
 .search-form button:hover {
-    background-color: #00e0a2;
+    background-color: #00cc8f;
 }
 
 .logout-form {
@@ -82,7 +91,7 @@ nav.navbar {
 }
 
 .logout-form button {
-    background-color: #c62828; 
+    background-color: #d63031; 
     color: white;
     padding: 8px 14px;
     font-size: 14px;
@@ -90,6 +99,7 @@ nav.navbar {
     border-radius: 6px;
     cursor: pointer;
     height: 36px; 
+    transition: background-color 0.3s;
 }
 
 .logout-form button:hover {
@@ -118,7 +128,7 @@ ul {
 form {
     background-color: #ffffff;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #b2dfdb;
     border-radius: 8px;
     max-width: 500px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -129,43 +139,50 @@ input, textarea {
     padding: 10px;
     margin-top: 6px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #b2dfdb;
     border-radius: 6px;
     box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input:focus, textarea:focus {
+    border-color: #00c992;
+    outline: none;
 }
 
 button {
-    background-color: #00ffae; /* neon green */
+    background-color: #00e6a1;
     color: #0d1b2a;
     padding: 10px 16px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #00cc8f;
 }
 
 .icon-delete-btn {
-    all: unset; /* This removes ALL inherited styles */
+    all: unset;
     cursor: pointer;
     font-size: 16px;
     color: #cc0000;
     margin-left: 10px;
+    transition: color 0.3s;
 }
 
 .icon-delete-btn:hover {
     color: #ff0000;
-    transform: scale(1.1);
-}
-
-button:hover {
-    background-color: #00e6a1;
 }
 
 .card {
     background-color: #ffffff;
     border-radius: 8px;
     padding: 15px 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     margin-bottom: 20px;
 }
 
@@ -183,8 +200,8 @@ button:hover {
     height: 100vh;
     width: 100%;
     margin: 0;
-    background-color: #afe8c9;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background-color: #a6f2d5;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.05);
 }
 
 .home-container h1 {
@@ -206,7 +223,7 @@ button:hover {
 }
 
 .primary-btn {
-    background-color: #00ffae;
+    background-color: #00e6a1;
     color: #0d1b2a;
     padding: 8px 14px;
     font-size: 13px;
@@ -217,7 +234,7 @@ button:hover {
 }
 
 .primary-btn:hover {
-    background-color: #00e6a1;
+    background-color: #00cc8f;
 }
 
 .dropdown {
@@ -227,17 +244,13 @@ button:hover {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #00f7b3;
+    background-color: #00d9a0;
     min-width: 160px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     z-index: 1;
     flex-direction: column;
     border-radius: 6px;
     padding: 10px 0;
-}
-
-.dropdown-content li {
-    margin: 0;
 }
 
 .dropdown-content li a {
