@@ -216,11 +216,16 @@ public class UiController {
         }
     }
 
-    
     @PostMapping("/reviews/delete/{id}")
     public String deleteReview(@PathVariable Long id, @RequestHeader("referer") String referer) {
         reviewService.deleteReview(id);
         return "redirect:" + referer; // redirect to same product details page
+    }
+    
+    @PostMapping("/orders/delete/{id}")
+    public String deleteOrder(@PathVariable Long id) {
+        orderService.deleteOrder(id);
+        return "redirect:/orders";
     }
 
     @GetMapping("/feedbacks")

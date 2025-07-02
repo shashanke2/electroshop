@@ -9,8 +9,17 @@
     <p><strong>User:</strong> <span th:text="${order.user.name}"></span></p>
     <p><strong>Date:</strong> <span th:text="${order.orderDate}"></span></p>
     <p><strong>Total Amount:</strong> ₹<span th:text="${order.totalAmount}"></span></p>
-
-    <hr/>
+    
+    <div style="margin-top: 10px;" sec:authorize="hasRole('USER')">
+       <form th:action="@{'/orders/delete/' + ${order.id}}"
+             method="post" 
+             style="display:inline; background:none;  padding:0; margin:0;"
+          	 onsubmit="return confirm('Are you sure you want to cancel this order?');">
+        	<input type="hidden" name="_method" value="delete" />
+        	    <button type="submit" class="icon-delete-btn" title="Cancel Order">Cancel Order</button>
+    	</form>
+     </div>
+     <hr/>
 
     <h3>Items in this Order</h3>
     <ul>
