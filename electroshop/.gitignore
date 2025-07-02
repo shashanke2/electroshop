@@ -1,33 +1,37 @@
-HELP.md
+# Ignore Maven build output
 target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
-### STS ###
-.apt_generated
+# Keep Maven Wrapper JAR (needed for mvnw)
+!.mvn/wrapper/maven-wrapper.jar
+
+# Eclipse / STS
 .classpath
-.factorypath
 .project
-.settings
+.settings/
+.apt_generated
+.factorypath
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# IntelliJ IDEA
+.idea/
 *.iml
 *.ipr
+*.iws
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
 
-### VS Code ###
+# VS Code
 .vscode/
+
+# Build folders in submodules (rare)
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Logs
+*.log
