@@ -1,11 +1,6 @@
-target
+target/
 .git
-.idea
-.vscode
-*.iml
-*.log
-Dockerfile
-docker-compose.yml
-README.md
 .gitignore
-HELP.md
+README.md
+docker-compose.yml
+Dockerfile
