@@ -19,7 +19,6 @@ public class UserController {
     // Register new User
     @PostMapping
     public ResponseEntity<User> registerUser(@Valid @RequestBody User user) {
-        user.setRole("ADMIN");
         User savedUser = userService.registerUser(user);
         return ResponseEntity.ok(savedUser);
     }
