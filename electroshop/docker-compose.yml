@@ -8,6 +8,6 @@ services:
       #SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/electroshop
       #SPRING_DATASOURCE_USERNAME: root
       #SPRING_DATASOURCE_PASSWORD: Shashank@1002
-      SPRING_DATASOURCE_URL: postgresql://electroshop_user:gmuZpweRf31QkUsN7IvGLGpzLpbHBGiq@dpg-d1vkpf3e5dus739siuu0-a/electroshop
+      SPRING_DATASOURCE_URL: jdbc:postgresql://electroshop_user:gmuZpweRf31QkUsN7IvGLGpzLpbHBGiq@dpg-d1vkpf3e5dus739siuu0-a/electroshop
       SPRING_DATASOURCE_USERNAME: electroshop_user
       SPRING_DATASOURCE_PASSWORD: gmuZpweRf31QkUsN7IvGLGpzLpbHBGiq
