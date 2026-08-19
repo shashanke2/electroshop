@@ -35,3 +35,7 @@ nbdist/
 
 # Logs
 *.log
+
+# Environment and local secrets
+.env
+application-local.properties
